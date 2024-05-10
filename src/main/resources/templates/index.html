@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{/layout/layoutV1 :: template(~{this :: title}, ~{this :: script}, ~{this :: content})}">
+      th:replace="~{/layout/template :: template(~{this :: title}, ~{this :: css}, ~{this :: script}, ~{this :: content})}">
 
 
-<title th:fragment="title">홈페이지 방문을 환영합니다..</title>
+<title th:fragment="title">:::: 홈페이지 방문을 환영합니다 ::::</title>
 
-<th:block th:fragment="script">
-    <script src="xxx.js"></script>
-    <script src="yyy.js"></script>
-    <script src="zzz.js"></script>
+<th:block th:fragment="css"></th:block>
+
+<th:block th:fragment="script"></th:block>
+
+<th:block th:fragment="content">
+    <h1 class="mt-4">JSP 실습을 위한 임시 홈페이지입니다.</h1>
+    <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger
+        screens. When toggled using the button below, the menu will change.</p>
+    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and
+        just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu
+        when clicked.</p>
+    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and
+        just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu
+        when clicked.</p>
+    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and
+        just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu
+        when clicked.</p>
+    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and
+        just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu
+        when clicked.</p>
 </th:block>
-
-<div th:fragment="content">
-    <h1>홈페이지 내용입니다....</h1>
-    <h1>홈페이지 내용입니다....</h1>
-    <h1>홈페이지 내용입니다....</h1>
-    <h1>홈페이지 내용입니다....</h1>
-    <h1>홈페이지 내용입니다....</h1>
-    <h1>홈페이지 내용입니다....</h1>
-</div>
 
 </html>
 

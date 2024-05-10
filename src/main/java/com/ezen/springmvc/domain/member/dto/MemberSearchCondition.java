@@ -1,4 +1,3 @@
-
 package com.ezen.springmvc.domain.member.dto;
 import lombok.*;
 

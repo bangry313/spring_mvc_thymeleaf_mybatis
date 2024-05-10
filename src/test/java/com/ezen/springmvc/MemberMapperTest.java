@@ -22,7 +22,7 @@ class MemberMapperTest {
 
     @Test
     @DisplayName("회원 전체 조회 테스트")
-//    @Disabled
+    @Disabled
     void findAllTest() {
         List<MemberDto> list  = memberMapper.findByAll();
         for (MemberDto memberDto : list) {
@@ -121,14 +121,14 @@ class MemberMapperTest {
 
     @Test
     @DisplayName("회원 통합 검색 테스트")
-	@Disabled
+//	@Disabled
     void findBySearchAllOptionTest() {
         MemberSearchCondition searchCondition =
                 MemberSearchCondition
                         .builder()
 				.memberId("bangry")
 				.name("김")
-//				.email("bangry@gmail.com")
+				.email("bangry@gmail.com")
                         .build();
         List<MemberDto> list = memberMapper.findBySearchAllOption(searchCondition);
         log.info("검색 옵션별 전체목록 : {}", list);
