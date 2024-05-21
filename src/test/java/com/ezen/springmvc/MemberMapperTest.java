@@ -73,14 +73,16 @@ class MemberMapperTest {
 
     @Test
     @DisplayName("회원 등록 테스트")
-    @Disabled
+//    @Disabled
     void createTest() {
         MemberDto createMember = MemberDto
                 .builder()
-                .id("sony")
+                .id("sonyy555")
                 .passwd("1111")
                 .name("손흥민")
-                .email("sony@gmail.com")
+                .email("sonyy555@gmail.com")
+                .originalProfile("xxxx.jpg")
+                .storedProfile("xxxx-dfd454.jpg")
                 .build();
         memberMapper.create(createMember);
         log.info("회원 등록 완료 : {}", createMember);

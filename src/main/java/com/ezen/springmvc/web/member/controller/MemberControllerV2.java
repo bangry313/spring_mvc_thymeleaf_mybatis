@@ -21,6 +21,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -32,11 +35,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
-@RequestMapping("/member")
+//@Controller
+//@RequestMapping("/member")
 @Slf4j
 @RequiredArgsConstructor
-public class MemberController {
+public class MemberControllerV2 {
 
     @Value("${upload.profile.path}")
     private String profileFileUploadPath;
@@ -49,13 +52,52 @@ public class MemberController {
     public String signUpForm(Model model) {
         MemberForm memberForm = MemberForm.builder().build();
         model.addAttribute("memberForm", memberForm);
-        return "/member/signUpForm";
+        return "/member/signUpFormV2";
     }
 
-    // 회원 가입 요청 처리
+    // 회원 가입 요청 처리 (BindingResult 활용한 데이터 유효성 검증 처리)
     @PostMapping("/signup")
-    public String signUpAction(@ModelAttribute MemberForm memberForm, RedirectAttributes redirectAttributes) {
+    public String signUpAction(@ModelAttribute MemberForm memberForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
         log.info("회원 정보 : {}", memberForm.toString());
+
+        // 입력 폼 필드에 대한 데이터 검증 (StringUtils 클래스 활용)
+        if(!StringUtils.hasText(memberForm.getId())){
+            // new FieldError("검증 폼객체", "검증 실패 필드명", "검증 오류 메시지");
+            FieldError fieldError = new FieldError("memberForm", "id","아이디는 필수 입력 항목입니다.");
+            bindingResult.addError(fieldError);
+        }else{
+            if(memberForm.getId().length() < 6 || memberForm.getId().length() > 10){
+                bindingResult.addError(new FieldError("memberForm", "id", "아이디는 6 ~ 10자 사이어야 합니다."));
+            }
+        }
+        if(!StringUtils.hasText(memberForm.getName())){
+            bindingResult.addError(new FieldError("memberForm", "name", "이름은 필수 입력 항목입니다."));
+        }
+        if(!StringUtils.hasText(memberForm.getEmail())){
+            bindingResult.addError(new FieldError("memberForm", "email", "이메일은 필수 입력 항목입니다."));
+        }
+        if(memberForm.getProfileImage().isEmpty()){
+            bindingResult.addError(new FieldError("memberForm", "profileImage", "프로필 사진은 필수 입력 항목입니다."));
+        }
+        if(!StringUtils.hasText(memberForm.getPasswd())){
+            bindingResult.addError(new FieldError("memberForm", "passwd", "비밀번호는 필수 입력 항목입니다."));
+        }
+        if(!StringUtils.hasText(memberForm.getRePasswd())){
+            bindingResult.addError(new FieldError("memberForm", "rePasswd", "비밀번호 확인은 필수 입력 항목입니다."));
+        }
+
+        // 특정 입력 필드가 아닌 여러 필드에 대한 복합적 데이터 검증 시
+        // 예를 들어 쇼핑몰 상품 주문 시 (주문 갯수 * 단가 = 10,000원 이상이어야 하는 경우)
+        int inputTotalPrice = 10000;
+        if(inputTotalPrice < 10000){
+            bindingResult.addError(new ObjectError("memberForm", "총 주문금액은 10,000원 이상이어야 합니다 (현재 주문금액 : " + inputTotalPrice + ")"));
+        }
+        // 입력 데이터 검증 실패 시 Model에 오류 메시지 저장 후 회원 가입화면으로 Forward
+        if(bindingResult.hasErrors()){
+            //model.addAttribute("bindingResult", bindingResult);
+            return "/member/signUpFormV2";
+        }
+
         // 업로드 프로필 사진 저장
         UploadFile uploadFile = fileService.storeFile(memberForm.getProfileImage(), profileFileUploadPath);
         // Form Bean -> Dto 변환

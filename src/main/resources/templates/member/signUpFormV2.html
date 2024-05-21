@@ -8,8 +8,8 @@
 <th:block th:fragment="css"></th:block>
 
 <th:block th:fragment="script">
-    <script src="/js/validator.js" defer></script>
-    <script src="/js/member_register.js" defer></script>
+<!--    <script src="/js/validator.js" defer></script>-->
+<!--    <script src="/js/member_register.js" defer></script>-->
 </th:block>
 
 <th:block th:fragment="content">
@@ -34,53 +34,41 @@
                                 <!-- <input type="text" class="form-control" required id="id" name="id" autofocus  placeholder="아이디"> -->
                                 <input type="text" class="form-control" required autofocus  placeholder="아이디" th:placeholder="#{memberForm.label.id}"  th:field="*{id}">
                                 <!-- 데이터 검증 오류 메시지 출력 -->
-                                <th:block th:if="${errors != null}">
-                                    <p th:if="${errors.containsKey('id')}" th:class="text-danger" th:text="${errors['id']}">아이디 관련 입력 오류 메시지</p>
-                                </th:block>
+                                <p th:errors="*{id}" th:class="text-danger">아이디 관련 입력 오류 메시지</p>
                             </div>
                             <div class="input-icon-group mb-3" id="dupResult"></div>
 
                             <div class="input-icon-group mb-3">
                                 <input type="text" class="form-control" required  autofocus placeholder="이름" th:placeholder="#{memberForm.label.name}"  th:field="*{name}">
                                 <!-- 데이터 검증 오류 메시지 출력 -->
-                                <th:block th:if="${errors != null}">
-                                    <p th:if="${errors.containsKey('name')}" th:class="text-danger" th:text="${errors['name']}">이름 관련 입력 오류 메시지</p>
-                                </th:block>
+                                <p th:errors="*{name}" th:class="text-danger">이름 관련 입력 오류 메시지</p>
                             </div>
 
                             <div class="input-icon-group mb-3">
                                 <input type="email" class="form-control" required placeholder="이메일" th:placeholder="#{memberForm.label.email}"  th:field="*{email}">
                                 <!-- 데이터 검증 오류 메시지 출력 -->
-                                <th:block th:if="${errors != null}">
-                                    <p th:if="${errors.containsKey('email')}" th:class="text-danger" th:text="${errors['email']}">이메일 관련 입력 오류 메시지</p>
-                                </th:block>
+                                <p th:errors="*{email}" th:class="text-danger">이메일 관련 입력 오류 메시지</p>
                             </div>
                             <div class="input-icon-group mb-3">
                                 <input type="file" class="form-control" required  th:field="*{profileImage}">
                                 <!-- 데이터 검증 오류 메시지 출력 -->
-                                <th:block th:if="${errors != null}">
-                                    <p th:if="${errors.containsKey('profileImage')}" th:class="text-danger" th:text="${errors['profileImage']}">이미지 관련 입력 오류 메시지</p>
-                                </th:block>
+                                <p th:errors="*{profileImage}" th:class="text-danger">프로필 이미지 관련 입력 오류 메시지</p>
                             </div>
 
                             <div class="input-icon-group mb-3">
                                 <input type="password" class="form-control" required placeholder="비밀번호" th:placeholder="#{memberForm.label.passwd}"  th:field="*{passwd}">
                                 <!-- 데이터 검증 오류 메시지 출력 -->
-                                <th:block th:if="${errors != null}">
-                                    <p th:if="${errors.containsKey('passwd')}" th:class="text-danger" th:text="${errors['passwd']}">비밀번호 관련 입력 오류 메시지</p>
-                                </th:block>
+                                <p th:errors="*{passwd}" th:class="text-danger">비밀번호 관련 입력 오류 메시지</p>
                             </div>
 
                             <div class="input-icon-group mb-3">
                                 <input type="password" class="form-control" required id="re-passwd" placeholder="비밀번호 확인" th:placeholder="#{memberForm.label.repasswd}"  th:field="*{rePasswd}">
                                 <!-- 데이터 검증 오류 메시지 출력 -->
-                                <th:block th:if="${errors != null}">
-                                    <p th:if="${errors.containsKey('rePasswd')}" th:class="text-danger" th:text="${errors['rePasswd']}">비밀번호 확인 관련 입력 오류 메시지</p>
-                                </th:block>
+                                <p th:errors="*{rePasswd}" th:class="text-danger">비밀번화 확인 관련 입력 오류 메시지</p>
                             </div>
                             <!-- 글로벌 오류 메시지 출력 -->
-                            <div th:if="${errors != null}">
-                                <p th:if="${errors.containsKey('global')}" th:class="text-danger" th:text="${errors['global']}">글로벌 오류 메시지</p>
+                            <div th:if="${#fields.hasGlobalErrors()}">
+                                <p th:each="globalMessage : ${#fields.globalErrors()}" th:text="${globalMessage}" th:class="text-danger">글로벌 오류 메시지</p>
                             </div>
                             <div class="d-grid">
                                 <button class="btn btn-primary" type="submit" th:text="#{memberForm.button.register}">가입하기</button>

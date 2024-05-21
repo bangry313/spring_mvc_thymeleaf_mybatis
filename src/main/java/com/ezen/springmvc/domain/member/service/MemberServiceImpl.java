@@ -26,8 +26,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<MemberDto> getMembers() {
-		return memberMapper.findByAll();
+	@Transactional
+	public void editMember(MemberDto memberDto) {
+		memberMapper.update(memberDto);
 	}
 
 	@Override
@@ -36,9 +37,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	@Transactional
-	public void editMember(MemberDto memberDto) {
-		memberMapper.update(memberDto);
+	public List<MemberDto> getMembers() {
+		return memberMapper.findByAll();
 	}
-
 }

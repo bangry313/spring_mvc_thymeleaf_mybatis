@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/template :: template(~{this :: title}, ~{this :: css}, ~{this :: script}, ~{this :: content})}">
+
+
+<title th:fragment="title">:::: 회원 정보 수정 ::::</title>
+
+<th:block th:fragment="css"></th:block>
+
+<th:block th:fragment="script">
+    <script src="/js/validator.js" defer></script>
+    <script src="/js/member_editer.js" defer></script>
+</th:block>
+
+<th:block th:fragment="content">
+    <div class="bg-pattern text-primary text-opacity-50 opacity-25 w-100 h-100 start-0 top-0 position-absolute">
+    </div>
+    <div class="bg-gradientwhite flip-y w-50 h-100 start-50 top-0 translate-middle-x position-absolute"></div>
+    <div class="container pt-11 pt-lg-14 pb-9 position-relative z-1">
+
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-6 col-sm-8 mt-3">
+                <h3 th:text="#{memberForm.title.edit}">회원 정보 수정</h3>
+                <p class="mb-2 w-lg-75">비밀번호와 이메일 수정 가능합니다. </p>
+                <div class="width-50x pt-1 bg-primary mb-3"></div>
+                <div class="position-relative">
+                    <div>
+                        <form name="editerForm" class="needs-validation" novalidate method="post" th:object="${memberForm}">
+                            <div class="input-icon-group mb-3">
+                                <input type="text" class="form-control"  readonly  th:field="*{id}">
+                            </div>
+                            <div class="input-icon-group mb-3">
+                                <input type="text" class="form-control" readonly th:field="*{name}">
+                            </div>
+                            <div class="input-icon-group mb-3">
+                                <input type="email" class="form-control" required th:field="*{email}">
+                            </div>
+                            <div class="input-icon-group mb-3">
+                                <input type="password" class="form-control" required id="passwd" name="passwd">
+                            </div>
+                            <div class="input-icon-group mb-3">
+                                <input type="password" class="form-control" required id="rePasswd" name="rePasswd">
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary" type="submit" th:text="#{memberForm.button.edit}">수정하기</button>
+                            </div>
+                        </form>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</th:block>
+
+</html>
+
+
+
+
+
+
+
+
+
+

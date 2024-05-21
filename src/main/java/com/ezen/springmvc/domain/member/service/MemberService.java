@@ -10,7 +10,7 @@ import java.util.List;
 public interface MemberService {
 	public void register(MemberDto memberDto);
 	public MemberDto isMember(String id, String passwd);
-	public List<MemberDto> getMembers();
 	public MemberDto getMember(String id);
+	public List<MemberDto> getMembers();
 	public void editMember(MemberDto member);
 }

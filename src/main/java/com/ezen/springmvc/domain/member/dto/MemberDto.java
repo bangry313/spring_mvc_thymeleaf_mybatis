@@ -14,4 +14,7 @@ public class MemberDto {
     private String name;
     private String email;
     private String regdate;
+    private String originalProfile;
+    private String storedProfile;
 }
+

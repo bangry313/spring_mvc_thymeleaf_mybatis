@@ -26,25 +26,23 @@
                 </p>
                 <div class="position-relative">
                     <div>
-                        <form class="needs-validation" action="#" method="post">
+                        <form class="needs-validation" method="post" th:object="${loginForm}">
                             <div class="input-icon-group mb-3">
 									<span class="input-icon">
 										<i class="bx bx-envelope"></i>
 									</span>
-                                <input type="text" name="loginid" class="form-control" autofocus placeholder="Userid">
+                                <input type="text" class="form-control" autofocus placeholder="Userid" th:field="*{loginId}">
                             </div>
                             <div class="input-icon-group mb-3">
 									<span class="input-icon">
 										<i class="bx bx-lock-open"></i>
 									</span>
-                                <input type="password" name="passwd" class="form-control" placeholder="Password">
+                                <input type="password" class="form-control" placeholder="Password" th:field="*{loginPasswd}">
                             </div>
                             <div class="mb-3 d-flex justify-content-between">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Remember ID
-                                    </label>
+                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault"  th:field="*{rememberLoginId}" >
+                                    <label class="form-check-label" for="flexCheckDefault">Remember ID</label>
                                 </div>
                                 <div>
                                     <label class="text-end d-block small mb-0"><a href="#" class="link-decoration">Forget
@@ -53,13 +51,13 @@
                             </div>
 
                             <div class="d-grid">
-                                <button class="btn btn-primary" type="submit"> Login</button>
+                                <button class="btn btn-primary" type="submit">Login</button>
                             </div>
                         </form>
 
                         <!---->
                         <p class="pt-4 small text-body-secondary">
-                            Don’t have an account yet? <a href="#.html" class="ms-2 fw-semibold link-underline">Sign
+                            Don’t have an account yet? <a href="#" class="ms-2 fw-semibold link-underline">Sign
                             Up</a>
                         </p>
                     </div>

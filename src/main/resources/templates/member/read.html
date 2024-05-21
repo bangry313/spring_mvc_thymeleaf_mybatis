@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/template :: template(~{this :: title}, ~{this :: css}, ~{this :: script}, ~{this :: content})}">
+
+
+<title th:fragment="title">:::: 회원 상세 정보 ::::</title>
+
+<th:block th:fragment="css"></th:block>
+
+<th:block th:fragment="script">
+</th:block>
+
+<th:block th:fragment="content">
+    <div class="bg-pattern text-primary text-opacity-50 opacity-25 w-100 h-100 start-0 top-0 position-absolute">
+    </div>
+    <div class="bg-gradientwhite flip-y w-50 h-100 start-50 top-0 translate-middle-x position-absolute"></div>
+    <div class="container pt-11 pt-lg-14 pb-9 position-relative z-1">
+
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-6 col-sm-8 mt-3">
+                <h3 th:text="#{memberForm.title.read}"></h3>
+                <div class="width-50x pt-1 bg-primary mb-3"></div>
+                <div class="position-relative">
+                    <div>
+                        <div class="input-icon-group mb-3">
+                            <input type="text" class="form-control" readonly th:value="${memberDto.id}">
+                        </div>
+                        <div class="input-icon-group mb-3">
+                            <input type="text" class="form-control" readonly th:value="${memberDto.name}">
+                        </div>
+                        <div class="input-icon-group mb-3">
+                            <input type="text" class="form-control" readonly th:value="${memberDto.email}">
+                        </div>
+                        <div class="input-icon-group mb-3">
+                            <input type="text" class="form-control" readonly th:value="${memberDto.regdate}">
+                        </div>
+                        <div class="input-icon-group mb-3">
+                            <img src="some.jpg" th:src="@{/member/image/{fileName}(fileName=${memberDto.storedProfile})}">
+                        </div>
+                    </div>
+                    <a class="btn btn-danger" th:href="@{/}">홈으로</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</th:block>
+
+</html>
+
+
+
+
+
+
+
+
+
+

@@ -32,11 +32,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
-@RequestMapping("/member")
+//@Controller
+//@RequestMapping("/member")
 @Slf4j
 @RequiredArgsConstructor
-public class MemberController {
+public class MemberControllerV1 {
 
     @Value("${upload.profile.path}")
     private String profileFileUploadPath;
@@ -54,8 +54,47 @@ public class MemberController {
 
     // 회원 가입 요청 처리
     @PostMapping("/signup")
-    public String signUpAction(@ModelAttribute MemberForm memberForm, RedirectAttributes redirectAttributes) {
+    public String signUpAction(@ModelAttribute MemberForm memberForm, RedirectAttributes redirectAttributes, Model model) {
         log.info("회원 정보 : {}", memberForm.toString());
+        // 사용자 입력 데이터 검증 실패 시 오류 메시지 저장을 위한 Map 생성
+        Map<String, String> errorMessages = new HashMap<>();
+
+        // 입력 폼 필드에 대한 데이터 검증 (StringUtils 클래스 활용)
+        if(!StringUtils.hasText(memberForm.getId())){
+            errorMessages.put("id","아이디는 필수 입력 항목입니다.");
+        }else{
+            if(memberForm.getId().length() < 6 || memberForm.getId().length() > 10){
+                errorMessages.put("id","아이디는 6 ~ 10자 사이어야 합니다.");
+            }
+        }
+        if(!StringUtils.hasText(memberForm.getName())){
+            errorMessages.put("name","이름은 필수 입력 항목입니다.");
+        }
+        if(!StringUtils.hasText(memberForm.getEmail())){
+            errorMessages.put("email","이메일은 필수 입력 항목입니다.");
+        }
+        if(memberForm.getProfileImage().isEmpty()){
+            errorMessages.put("profileImage","프로필 사진은 필수 입력 항목입니다.");
+        }
+        if(!StringUtils.hasText(memberForm.getPasswd())){
+            errorMessages.put("passwd","비밀번호는 필수 입력 항목입니다.");
+        }
+        if(!StringUtils.hasText(memberForm.getRePasswd())){
+            errorMessages.put("rePasswd","비밀번호 확인은 필수 입력 항목입니다.");
+        }
+
+        // 특정 입력 필드가 아닌 여러 필드에 대한 복합적 데이터 검증 시
+        // 예를 들어 쇼핑몰 상품 주문 시 (주문 갯수 * 단가 = 10,000원 이상이어야 하는 경우)
+        int inputTotalPrice = 10000;
+        if(inputTotalPrice < 10000){
+            errorMessages.put("global", "총 주문금액은 10,000원 이상이어야 합니다 (현재 주문금액 : " + inputTotalPrice + ")");
+        }
+        // 입력 데이터 검증 실패 시 Model에 오류 메시지 저장 후 회원 가입화면으로 Forward
+        if(!errorMessages.isEmpty()){
+            model.addAttribute("errors", errorMessages);
+            return "/member/signUpForm";
+        }
+
         // 업로드 프로필 사진 저장
         UploadFile uploadFile = fileService.storeFile(memberForm.getProfileImage(), profileFileUploadPath);
         // Form Bean -> Dto 변환
