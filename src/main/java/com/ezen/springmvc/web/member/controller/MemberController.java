@@ -18,9 +18,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -32,8 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
-@RequestMapping("/member")
+//@Controller
+//@RequestMapping("/member")
 @Slf4j
 @RequiredArgsConstructor
 public class MemberController {
@@ -58,6 +56,7 @@ public class MemberController {
         log.info("회원 정보 : {}", memberForm.toString());
         // 업로드 프로필 사진 저장
         UploadFile uploadFile = fileService.storeFile(memberForm.getProfileImage(), profileFileUploadPath);
+
         // Form Bean -> Dto 변환
         MemberDto memberDto = MemberDto.builder()
                 .id(memberForm.getId())
@@ -67,6 +66,7 @@ public class MemberController {
                 .storedProfile(uploadFile.getStoreFileName())
                 .passwd(memberForm.getPasswd())
                 .build();
+
         memberService.register(memberDto);
         redirectAttributes.addFlashAttribute("memberDto", memberDto);
         return "redirect:/member/signup/result";

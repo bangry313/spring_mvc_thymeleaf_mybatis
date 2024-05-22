@@ -8,8 +8,8 @@
 <th:block th:fragment="css"></th:block>
 
 <th:block th:fragment="script">
-    <script src="/js/validator.js" defer></script>
-    <script src="/js/member_register.js" defer></script>
+<!--    <script src="/js/validator.js" defer></script>-->
+<!--    <script src="/js/member_register.js" defer></script>-->
 </th:block>
 
 <th:block th:fragment="content">
@@ -31,7 +31,8 @@
                     <div>
                         <form name="registerForm" class="needs-validation" novalidate method="post" th:object="${memberForm}" enctype="multipart/form-data">
                             <div class="input-icon-group mb-3">
-                                <!-- <input type="text" class="form-control" required id="id" name="id" autofocus  placeholder="아이디"> -->
+                                <!-- th:field 속성은 데이터 검증 정상 처리 상황에는 Form 객체의 필드명과 값을 출력하지만,
+                                     데이터 검증 오류가 발생하면 BindingResult에 저장한 FieldError의 rejectedValue 값을 출력한다. -->
                                 <input type="text" class="form-control" required autofocus  placeholder="아이디" th:placeholder="#{memberForm.label.id}"  th:field="*{id}">
                                 <!-- 데이터 검증 오류 메시지 출력 -->
                                 <p th:errors="*{id}" th:class="text-danger">아이디 관련 입력 오류 메시지</p>

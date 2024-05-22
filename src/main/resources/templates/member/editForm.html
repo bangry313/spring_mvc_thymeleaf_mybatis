@@ -27,7 +27,7 @@
                     <div>
                         <form name="editerForm" class="needs-validation" novalidate method="post" th:object="${memberForm}">
                             <div class="input-icon-group mb-3">
-                                <input type="text" class="form-control"  readonly  th:field="*{id}">
+                                <input type="text" class="form-control"  readonly th:field="*{id}">
                             </div>
                             <div class="input-icon-group mb-3">
                                 <input type="text" class="form-control" readonly th:field="*{name}">
@@ -36,7 +36,7 @@
                                 <input type="email" class="form-control" required th:field="*{email}">
                             </div>
                             <div class="input-icon-group mb-3">
-                                <input type="password" class="form-control" required id="passwd" name="passwd">
+                                <input type="password" class="form-control" required  th:field="*{passwd}">
                             </div>
                             <div class="input-icon-group mb-3">
                                 <input type="password" class="form-control" required id="rePasswd" name="rePasswd">
