@@ -1,17 +1,13 @@
 package com.ezen.springmvc.domain.common.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Component
-@Aspect
+//@Component
+//@Aspect
 @Slf4j
 public class LogAspect {
 	
@@ -28,6 +24,11 @@ public class LogAspect {
 	@AfterReturning(pointcut = "execution(* com.ezen.springmvc.web..*(..))", returning="returnValue")
 	public void afterReturnLog(Object returnValue) {
 		log.info("- 세부 컨트롤러 실행 후 반환값 : " + returnValue);
+	}
+
+	@AfterThrowing(pointcut = "execution(* com.ezen.springmvc.web..*(..))", throwing="ex")
+	public void afterReturnLog(Exception ex) {
+		log.info("- 세부 컨트롤러 예외 발생 : {}", ex);
 	}
 	
 	@Around("execution(* com.ezen.springmvc.web..*(..))")

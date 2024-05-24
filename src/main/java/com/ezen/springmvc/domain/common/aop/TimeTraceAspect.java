@@ -7,10 +7,11 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Component
-@Aspect
+//@Component
+//@Aspect
 @Slf4j
 public class TimeTraceAspect {
+
 	// 실행 시간 측정 및 로그 기록 공통기능 정의(포인트컷 표현식을 이용한 적용 시점 설정)
 	@Around("execution(* com.ezen.springmvc..*(..))")
 	public Object timeCheck(ProceedingJoinPoint joinPoint) {
