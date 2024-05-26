@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper	namespace="com.ezen.springmvc.domain.order.mapper.PaymentMapper">
+	<insert id="create" parameterType="PaymentDto">
+		INSERT INTO payments (
+			payment_id,
+			order_id,
+			pay_status
+		) VALUES (
+			payments_id_seq.NEXTVAL,
+			#{orderId},
+			#{payStatus}
+		)
+		<selectKey keyProperty="paymentId" resultType="int" order="AFTER">
+			SELECT payments_id_seq.CURRVAL FROM dual
+		</selectKey>
+	</insert>
+	<update id="updatePayStatus" parameterType="PaymentDto">
+		UPDATE payments
+		SET pay_status = #{payStatus}
+		WHERE order_id = #{orderId}
+	</update>
+</mapper>
+

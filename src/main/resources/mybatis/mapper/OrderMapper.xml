@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper	namespace="com.ezen.springmvc.domain.order.mapper.OrderMapper">
+	<insert id="create" parameterType="OrderDto">
+		INSERT INTO orders (
+			order_id,
+			member_id,
+			order_price
+		) VALUES (
+			orders_id_seq.NEXTVAL,
+			#{memberId},
+			#{orderPrice}
+		)
+		<selectKey keyProperty="orderId" resultType="int" order="AFTER">
+			SELECT orders_id_seq.CURRVAL FROM dual
+		</selectKey>
+	</insert>
+</mapper>
+
