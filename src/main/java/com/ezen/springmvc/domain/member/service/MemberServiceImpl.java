@@ -2,10 +2,12 @@ package com.ezen.springmvc.domain.member.service;
 
 import com.ezen.springmvc.domain.member.dto.MemberDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import com.ezen.springmvc.domain.member.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @RequiredArgsConstructor

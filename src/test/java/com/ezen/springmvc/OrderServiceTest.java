@@ -24,7 +24,7 @@ public class OrderServiceTest {
 	@Disabled
 	public void orderTest() throws NotEnoughMoneyException {
 		OrderDto orderDto = OrderDto.builder()
-				.memberId("customer2")
+				.memberId("customer3")
 				.orderPrice(10000)
 				.build();
 		orderService.order(orderDto);
@@ -43,11 +43,11 @@ public class OrderServiceTest {
 
 	@Test
 	@DisplayName("비즈니스(컴파일 체크) 예외 발생 주문 처리 테스트")
-	@Disabled
+//	@Disabled
 	public void orderTest3() {
 		OrderDto orderDto = OrderDto.builder()
 				.memberId("bangry")
-				.orderPrice(10000)
+				.orderPrice(100)
 				.build();
 		try {
 		    orderService.order(orderDto);

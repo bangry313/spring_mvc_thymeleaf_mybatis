@@ -8,6 +8,7 @@ import com.ezen.springmvc.domain.order.mapper.PaymentMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -18,6 +19,7 @@ public class OrderServiceImpl implements OrderService {
     private final PaymentMapper paymentMapper;
 
     @Transactional
+    //@Transactional(rollbackFor = NotEnoughMoneyException.class)
     @Override
     public void order(OrderDto orderDto) throws NotEnoughMoneyException {
         log.info("========= order(OrderDto orderDto) 메소드 호출됨 =========");

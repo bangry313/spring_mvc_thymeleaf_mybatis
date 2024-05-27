@@ -16,10 +16,10 @@ public class OrderMapperTest {
 	private OrderMapper orderMapper;
 	
 	@Test
-	@Disabled
+//	@Disabled
 	public void createTest() {
 		OrderDto orderDto = OrderDto.builder()
-				.memberId("customer1")
+				.memberId("customer2")
 				.orderPrice(1000000)
 				.build();
 		orderMapper.create(orderDto);

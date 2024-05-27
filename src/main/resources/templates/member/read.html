@@ -34,8 +34,8 @@
                         <div class="input-icon-group mb-3">
                             <input type="text" class="form-control" readonly th:value="${memberDto.regdate}">
                         </div>
-                        <div class="input-icon-group mb-3">
-                            <img src="some.jpg" th:src="@{/member/image/{fileName}(fileName=${memberDto.storedProfile})}">
+                        <div class="input-icon-group mb-3" th:if="${memberDto.storedProfile != null}">
+                            <img src="some.jpg"  th:src="@{/member/image/{fileName}(fileName=${memberDto.storedProfile})}">
                         </div>
                     </div>
                     <a class="btn btn-danger" th:href="@{/}">홈으로</a>

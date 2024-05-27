@@ -61,7 +61,7 @@ public class MemberControllerV6 {
 
         // 특정 입력 필드가 아닌 여러 필드에 대한 복합 필드 검증은 Bean Validation 사용하지 않고 직접 작성
         // 예를 들어 쇼핑몰 상품 주문 시 (주문 갯수 * 단가 = 10,000원 이상이어야 하는 경우)
-        int inputTotalPrice = 9000;
+        int inputTotalPrice = 10000;
         if(inputTotalPrice < 10000){
             bindingResult.reject("min.totalprice", new Object[]{10000, inputTotalPrice}, null);
         }
@@ -173,7 +173,8 @@ public class MemberControllerV6 {
 
     // 회원 로그인 요청 처리
     @PostMapping("/signin")
-    public String signInAction(@ModelAttribute LoginForm loginForm, HttpServletRequest request, HttpServletResponse response) {
+    public String signInAction(@RequestParam(value = "redirectURI", required = false, defaultValue = "/") String redirectURI,
+                               @ModelAttribute LoginForm loginForm, HttpServletRequest request, HttpServletResponse response) {
         log.info("로그인 정보 : {}", loginForm.toString());
         MemberDto loginMember = memberService.isMember(loginForm.getLoginId(), loginForm.getLoginPasswd());
         // 회원 아닌 경우
@@ -201,7 +202,7 @@ public class MemberControllerV6 {
         }
         HttpSession session = request.getSession();
         session.setAttribute("loginMember", loginMember);
-        return "redirect:/";
+        return "redirect:" + redirectURI;
     }
 
     // 회원 로그아웃 요청 처리
