@@ -167,7 +167,10 @@ public class MemberControllerV6 {
 
     // 회원 로그인 화면 요청 처리
     @GetMapping("/signin")
-    public String signInForm(@ModelAttribute LoginForm loginForm) {
+    public String signInForm(@ModelAttribute LoginForm loginForm, @CookieValue(value = "saveId", required = false) String saveId, Model model) {
+        if(saveId != null){
+            loginForm.setLoginId(saveId);
+        }
         return "/member/signInForm";
     }
 
