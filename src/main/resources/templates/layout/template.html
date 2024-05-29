@@ -56,14 +56,17 @@
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             게시판
                         </a>
+
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/board/10/article">자유게시판</a>
-                            <a class="dropdown-item" href="#">만땅 자료실</a>
-                            <a class="dropdown-item" href="#">공지사항</a>
-                            <a class="dropdown-item" href="#">묻고 답하기</a>
-                            <div class="dropdown-divider">묻고 답하기</div>
-                            <a class="dropdown-item" href="#">토론방</a>
+                            <a class="dropdown-item" th:href="@{/board/{boardId}/article(boardId=${boardDto.boardId})}" th:each="boardDto : ${boardList}" th:text="${boardDto.title}">자유게시판</a>
+<!--                            <a class="dropdown-item" href="/board/10/article">자유게시판</a>-->
+<!--                            <a class="dropdown-item" href="#">만땅 자료실</a>-->
+<!--                            <a class="dropdown-item" href="#">공지사항</a>-->
+<!--                            <a class="dropdown-item" href="#">묻고 답하기</a>-->
+<!--                            <div class="dropdown-divider">묻고 답하기</div>-->
+<!--                            <a class="dropdown-item" href="#">토론방</a>-->
                         </div>
+
                     </li>
 
                     <th:block th:if="${session.loginMember == null}">

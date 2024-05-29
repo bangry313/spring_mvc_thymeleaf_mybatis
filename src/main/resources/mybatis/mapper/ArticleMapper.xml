@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ezen.springmvc.domain.board.mapper.ArticleMapper">
+    <!-- 신규 게시글 등록 -->
+    <insert id="create" parameterType="ArticleDTO">
+        INSERT INTO article (article_id,
+                             board_id,
+                             writer,
+                             title,
+                             content,
+                             passwd,
+                             group_no,
+                             level_no,
+                             order_no)
+        VALUES (article_id_seq.NEXTVAL,
+                #{boardId},
+                #{writer},
+                #{title},
+                #{content},
+                #{passwd},
+                article_id_seq.CURRVAL,
+                #{levelNo},
+                #{orderNo})
+    </insert>
+
+    <!-- 특정 게시판의 검색 조건에 따른 게시글 전체 목록 반환 -->
+    <select id="findBySearchCondition" resultType="ArticleDto">
+        SELECT board_id,
+               article_id,
+               title,
+               writer,
+               regdate,
+               hitcount,
+               group_no,
+               level_no,
+               order_no
+        FROM   (SELECT CEIL(rownum / #{searchDto.limit}) page,
+                       board_id,
+                       article_id,
+                       title,
+                       writer,
+                       TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI') regdate,
+                       hitcount,
+                       group_no,
+                       level_no,
+                       order_no
+                FROM   (SELECT board_id,
+                               article_id,
+                               title,
+                               writer,
+                               regdate,
+                               hitcount,
+                               group_no,
+                               level_no,
+                               order_no
+                        FROM   article
+                        <where>
+                            board_id = #{boardId}
+                            <if test="searchDto.searchValue != null">AND writer = #{searchDto.searchValue}</if>
+                            <if test="searchDto.searchValue != null">OR title LIKE '%' || #{searchDto.searchValue} || '%'</if>
+                            <if test="searchDto.searchValue != null">OR content LIKE '%' || #{searchDto.searchValue} || '%'</if>
+                        </where>
+                        ORDER  BY group_no DESC,
+                                  order_no ASC))
+        WHERE  page = #{searchDto.page}
+    </select>
+
+    <!-- 특정 게시판의 검색 조건에 따른 게시글 전체 갯수 반환 -->
+    <select id="countBySearchCondition" resultType="int">
+        SELECT
+        COUNT(article_id) "cnt"
+        FROM
+        article
+        <where>
+            board_id = #{boardId}
+            <if test="searchDto.searchValue != null">AND writer = #{searchDto.searchValue}</if>
+            <if test="searchDto.searchValue != null">OR title LIKE '%' || #{searchDto.searchValue} || '%'</if>
+            <if test="searchDto.searchValue != null">OR content LIKE '%' || #{searchDto.searchValue} || '%'</if>
+        </where>
+    </select>
+</mapper>
