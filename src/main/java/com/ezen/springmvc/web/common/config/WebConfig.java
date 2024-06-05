@@ -18,7 +18,8 @@ public class WebConfig implements WebMvcConfigurer {
                     "/", "/css/**", "/img/**", "/js/**", "/*.ico", "/vendor/**",
                     "/member/signup/**", "/member/idcheck/{inputId}", "/member/image/{profileFileName}",
                     "/member/signin", "/member/signout", "/api/member/signup",
-                    "/board/{boardId}/article");
+                    "/board/{boardId}/article",
+                    "/todo/**");
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

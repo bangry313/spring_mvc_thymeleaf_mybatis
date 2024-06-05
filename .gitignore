@@ -35,3 +35,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### React ###
+# dependencies
+!**/src/main/react_todo/build
+!**/src/main/react_todo/node_modules
