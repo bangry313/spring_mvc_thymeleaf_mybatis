@@ -38,4 +38,4 @@ out/
 
 ### React ###
 # dependencies
-/src/main/react_todo/node_modules/
+!**/src/main/**/node_modules/
