@@ -38,5 +38,5 @@ out/
 
 ### React ###
 # dependencies
-!**/src/main/react_todo/build
-!**/src/main/react_todo/node_modules
+/src/main/react_todo/build
+/src/main/react_todo/node_modules
