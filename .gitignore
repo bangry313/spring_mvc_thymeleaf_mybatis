@@ -38,5 +38,5 @@ out/
 
 ### React ###
 # dependencies
-src/main/ract_todo/build/
-src/main/ract_todo/node_modules/
+#src/main/ract_todo/build/
+#src/main/ract_todo/node_modules/
